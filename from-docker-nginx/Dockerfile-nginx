@@ -1,0 +1,14 @@
+#failed with php
+FROM nginx
+LABEL description="simple webserver based on nginx + php" creator="skiff" side="backend"
+RUN apt-get -y update && apt-get -y upgrade && apt-get install -y net-tools nano curl wget netcat php php-fpm
+#configuring nginx
+COPY ./default /etc/nginx/conf.d/default.conf
+#copy php-file
+COPY ./*.php /usr/share/nginx/html
+
+#RUN ./install_docker_for_containers.sh
+EXPOSE 80
+#RUN chmod 711 ./webserverskiff.sh
+#RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+#CMD ./webserverskiff.sh
