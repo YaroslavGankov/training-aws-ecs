@@ -1,4 +1,7 @@
 #first proxy-web-server nginx without php
+#parameter after docker run may contain an IP for proxying.
+#parameter also can include port <ip>:<port>
+
 FROM ubuntu
 LABEL description="simple webserver based on nginx without php" creator="skiff" side="frontend"
 #RUN apt-get -y update && apt-get -y upgrade && apt-get install -y nginx net-tools nano curl wget netcat php php-fpm
@@ -19,4 +22,7 @@ EXPOSE 80
 #RUN /etc/init.d/php8.1-fpm start
 #ENTRYPOINT [ "service", "php8.1-fpm", "start"]
 #ENTRYPOINT [ "service", "php8.1-fpm", "start;" ]
-CMD ["nginx", "-g", "daemon off;"]
+COPY ./*.sh /
+RUN chmod 755 /*.sh
+STOPSIGNAL SIGQUIT
+ENTRYPOINT ["/startcontainer_frontend.sh"]

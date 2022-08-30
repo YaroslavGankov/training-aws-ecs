@@ -16,9 +16,10 @@ EXPOSE 80
 #copy scripts
 COPY ./*.sh /
 RUN chmod 755 /*.sh
-RUN . /put_ip_to_index.sh
+#RUN . /put_ip_to_index.sh
 #RUN /etc/init.d/php8.1-fpm start
 #ENTRYPOINT [ "service", "php8.1-fpm", "start"]
 #ENTRYPOINT [ "service", "php8.1-fpm", "start;" ]
 #CMD ["nginx", "-g", "daemon off;"]
+STOPSIGNAL SIGQUIT
 ENTRYPOINT ["/startcontainer.sh"]
